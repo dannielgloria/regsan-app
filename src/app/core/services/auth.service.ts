@@ -12,10 +12,20 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials)
+    return this.http.post<{ access_token: string }>(`${this.apiUrl}/login`, credentials)
       .pipe(
-        tap(response => localStorage.setItem('token', response.token)),
-        catchError(error => throwError(error))
+        tap(response => {
+          console.log('Login response:', response); // Verifica la respuesta aquí
+          if (response.access_token) {
+            localStorage.setItem('token', response.access_token);
+          } else {
+            console.error('Token is missing in the response');
+          }
+        }),
+        catchError(error => {
+          console.error('Login error:', error); // Verifica los errores aquí
+          return throwError(error);
+        })
       );
   }
 
