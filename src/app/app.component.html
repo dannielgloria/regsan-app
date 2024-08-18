@@ -1,33 +1,37 @@
-<!-- main app container -->
-<div class="card m-3">
-  <h5 class="card-header">Recuperar contraseña</h5>
-  <div class="card-body">
-      <form [formGroup]="pwdForm" (ngSubmit)="onSubmit()">
 
-          <div class="row">
-              <div class="col mb-3">
-                  <label class="form-label">Correo Electrónico</label>
-                  <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                      <div *ngIf="f.email.errors.required">Email is required</div>
-                      <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-              <div class="col mb-3">
-                  <label class="form-label">Confirmar Correo</label>
-                  <input type="text" formControlName="confirmEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }" />
-                  <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
-                      <div *ngIf="f.confirmEmail.errors.required">Confirm Email is required</div>
-                      <div *ngIf="f.confirmEmail.errors.mustMatch">Emails must match</div>
-                  </div>
-              </div>
-          </div>
-          <div class="text-center">
-              <button class="btn btn-primary me-2">Enviar</button>
-              <button class="btn btn-secondary" type="reset" (click)="onReset()">Regresar</button>
-          </div>
-      </form>
-  </div>
+<!-- main app container -->
+
+<div class="card m-3">
+<h5 class="card-header">Recuperar contraseña</h5>
+<div class="card-body">
+    <form [formGroup]="pwdForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col mb-3">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid':f.email.errors }" data-bs-toggle="tooltip" data-bs-title="Ingresa tu correo para continuar" data-bs-placement="bottom"/>
+                <div *ngIf="f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mb-3">
+                <label class="form-label">Confirmar Correo</label>
+                <input type="text" formControlName="confirmEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmEmail.errors }" data-bs-toggle="tooltip" data-bs-title="Ingresa tu correo para continuar" data-bs-placement="bottom" />
+                <div *ngIf="submitted && f.confirmEmail.errors" class="invalid-feedback">
+                    <div *ngIf="f.confirmEmail.errors.required">Confirm Email is required</div>
+                    <div *ngIf="f.confirmEmail.errors.mustMatch">Emails must match</div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary me-2"  type="button" [disabled]="f.confirmEmail.errors">Enviar</button>
+
+            <button class="btn btn-secondary" type="reset" (click)="onReset()">Regresar</button>
+        </div>
+    </form>
 </div>
+</div>
+
+
