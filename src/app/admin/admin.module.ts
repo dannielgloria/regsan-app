@@ -7,6 +7,7 @@ import { ManageClientsComponent } from './manage-clients/manage-clients.componen
 import { ManageProcessesComponent } from './manage-processes/manage-processes.component';
 import { SearchProcessesComponent } from './search-processes/search-processes.component';
 import { TechnicalDataComponent } from './technical-data/technical-data.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { TechnicalDataComponent } from './technical-data/technical-data.componen
     ManageClientsComponent,
     ManageProcessesComponent,
     SearchProcessesComponent,
-    TechnicalDataComponent
+    TechnicalDataComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
