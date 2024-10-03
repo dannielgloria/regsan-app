@@ -23,19 +23,19 @@
       </a>
       <ul class="collapse nav flex-column ms-3" id="submenu2">
         <li class="nav-item">
-          <a class="nav-link text-white" href="/tramites/administrar">
+          <a class="nav-link text-white" href="/admin/manage-processes">
             <img class="icon" src="../../assets/icons/administrar-tramites.svg" alt="admin-procedures-icon">
             <span class="d-none d-sm-inline">Administrar Trámites</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="/tramites/ver">
+          <a class="nav-link text-white" href="/admin/search-processes">
             <img class="icon" src="../../assets/icons/ver-tramites.svg" alt="see-procedures-icon">
             <span class="d-none d-sm-inline">Ver Trámites</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="/tramites/agregar-datos">
+          <a class="nav-link text-white" href="/admin/technical-data">
             <img class="icon" src="../../assets/icons/agregar-datos.svg" alt="add-data-icon">
             <span class="d-none d-sm-inline">Agregar Datos Técnicos</span>
           </a>
@@ -55,7 +55,7 @@
   <!-- Ítem Salir centrado y al final de la barra -->
   <ul class="navbar-nav flex-column mb-3">
     <li class="nav-item text-center">
-      <a href="#" class="nav-link text-white">
+      <a (click)="logout()" class="nav-link text-white" style="cursor: pointer;">
         <img class="icon" src="../../assets/icons/logout-2-w.svg" alt="logout-icon">
         <span class="ms-1 d-none d-sm-inline">Salir</span>
       </a>

@@ -1,1 +1,111 @@
-<p>manage-clients works!</p>
+<app-navbar></app-navbar>
+<div class="content-container container-fluid pt-4 px-4">
+  <div class="row g-4">
+      <div class="col-sm-12 col-xl-6">
+          <div class="bg-form rounded h-100 p-4">
+              <h6 class="mb-4">Registro de Cliente</h6>
+              <div id="alertPlaceholderCrear"></div>
+              <form [formGroup]="clientForm" (ngSubmit)="registerClient()">
+                <div class="mb-3">
+                  <label for="rfcClienteCrear" class="form-label">RFC</label>
+                  <input formControlName="rfc" type="text" class="form-control" id="rfcClienteCrear" required>
+                </div>
+                <div class="mb-3">
+                  <label for="razonSocialClienteCrear" class="form-label">Razón Social</label>
+                  <input formControlName="business_name" type="text" class="form-control" id="razonSocialClienteCrear" required>
+                </div>
+                <div class="mb-3">
+                  <label for="emailClienteCrear" class="form-label">Email</label>
+                  <input formControlName="email" type="email" class="form-control" id="emailClienteCrear" required>
+                </div>
+                <div class="mb-3">
+                  <label for="telefonoClienteCrear" class="form-label">Teléfono</label>
+                  <input formControlName="phone_number" type="tel" class="form-control" id="telefonoClienteCrear" required>
+                </div>
+                <div class="mb-3">
+                  <label for="nombreResponsableClienteCrear" class="form-label">Nombre del Responsable</label>
+                  <input formControlName="contact_first_name" type="text" class="form-control" id="nombreResponsableClienteCrear" required>
+                </div>
+                <div class="mb-3">
+                  <label for="apellidoResponsableClienteCrear" class="form-label">Apellido del Responsable</label>
+                  <input formControlName="contact_last_name" type="text" class="form-control" id="apellidoResponsableClienteCrear" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar Cliente</button>
+              </form>
+
+          </div>
+      </div>
+      <div class="col-sm-12 col-xl-6">
+          <div class="bg-form rounded h-100 p-4">
+              <h6 class="mb-4">Modificar Datos de Cliente</h6>
+              <div id="alertPlaceholderActualizar"></div>
+              <form id="formActualizarCliente" onsubmit="actualizarCliente(); return false;">
+                  <div class="mb-3">
+                      <label for="rfcClienteBuscar" class="form-label">RFC para búsqueda</label>
+                      <input type="text" class="form-control" id="rfcClienteBuscar" required placeholder="Ingresa RFC para buscar">
+                      <button type="button" class="btn btn-warning mt-2" onclick="buscarCliente()">Buscar Cliente</button>
+                  </div>
+                  <input type="hidden" id="rfcClienteActualizar" name="rfcCliente">
+                  <div class="mb-3">
+                      <label for="razonSocialCliente" class="form-label">Razón Social</label>
+                      <input type="text" class="form-control" id="razonSocialCliente" name="razonSocialCliente" required disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="emailCliente" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="emailCliente" name="emailCliente" required disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="telefonoCliente" class="form-label">Teléfono</label>
+                      <input type="tel" class="form-control" id="telefonoCliente" name="telefonoCliente" required disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="nombreResponsableCliente" class="form-label">Nombre del Responsable</label>
+                      <input type="text" class="form-control" id="nombreResponsableCliente" name="nombreResponsableCliente" required disabled>
+                  </div>
+                  <div class="mb-3">
+                      <label for="apellidoResponsableCliente" class="form-label">Apellido del Responsable</label>
+                      <input type="text" class="form-control" id="apellidoResponsableCliente" name="apellidoResponsableCliente" required disabled>
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="actualizarDatos" disabled>Actualizar Datos</button>
+              </form>
+          </div>
+      </div>
+      <div class="col-sm-12 col-xl-6">
+          <div class="bg-form rounded h-100 p-4">
+              <h6 class="mb-4">Eliminar Cliente</h6>
+              <div id="alertPlaceholderEliminar"></div>
+              <form id="formEliminarCliente" onsubmit="eliminarCliente(); return false;">
+                  <div class="mb-3">
+                      <label for="rfcClienteEliminar" class="form-label">RFC del Cliente a Eliminar</label>
+                      <input type="text" class="form-control" id="rfcClienteEliminar" required>
+                  </div>
+                  <button type="submit" class="btn btn-danger">Eliminar Cliente</button>
+              </form>
+          </div>
+      </div>
+      <div class="col-12">
+          <div class="bg-form rounded h-100 p-4">
+              <h4 class="mb-4">Clientes</h4>
+              <div id="alertPlaceholder"></div>
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">RFC</th>
+                              <th scope="col">Razón Social</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Teléfono</th>
+                              <th scope="col">Nombre Responsable</th>
+                              <th scope="col">Apellido Responsable</th>
+                          </tr>
+                      </thead>
+                      <tbody id="tablaClientesBody">
+                          <!-- Las filas de los clientes se cargarán aquí mediante JavaScript -->
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

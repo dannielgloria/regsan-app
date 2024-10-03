@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +8,11 @@ import { Component, HostListener } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private router: Router) {}
+
+  logout(): void {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('role');
+    this.router.navigate(['/login']);
+  }
 }

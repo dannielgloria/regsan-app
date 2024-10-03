@@ -17,11 +17,10 @@ export class RoleGuardService implements CanActivate {
       return false;
     }
 
-    if (role === expectedRole) {
-      return true;
-    } else {
+    if (role !== expectedRole) {
       this.router.navigate(['/login']);
       return false;
     }
+    return true;
   }
 }

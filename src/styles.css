@@ -1,7 +1,7 @@
 :root {
   --primary: #0D9603;
   --secondary: #191C24;
-  --light: #6C7293;
+  --light: #d5d7e0;
   --dark: #191C1F;
 
   --font-family-base: 'Open Sans', sans-serif;
@@ -87,4 +87,8 @@ input {
 
 a {
   text-decoration: var(--link-decoration);
+}
+
+.bg-form{
+  background-color: #212529;
 }
