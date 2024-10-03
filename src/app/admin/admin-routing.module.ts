@@ -6,13 +6,15 @@ import { ManageProcessesComponent } from './manage-processes/manage-processes.co
 import { SearchProcessesComponent } from './search-processes/search-processes.component';
 import { TechnicalDataComponent } from './technical-data/technical-data.component';
 import { RoleGuardService } from '../core/services/role-guard.service';
+import { ManageEmployesComponent } from './manage-employes/manage-employes.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: AdminDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
   { path: 'manage-clients', component: ManageClientsComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
   { path: 'manage-processes', component: ManageProcessesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
   { path: 'search-processes', component: SearchProcessesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
-  { path: 'technical-data', component: TechnicalDataComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } }
+  { path: 'technical-data', component: TechnicalDataComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
+  { path: 'manage-employes', component: ManageEmployesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } }
 ];
 
 @NgModule({

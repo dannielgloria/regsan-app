@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <div class="content-container container-fluid pt-4 px-4">
-  <div bg-form rounded>
+  <h4>Ver Trámites</h4>
+  <div class="bg-form rounded h-100 p-4">
     <div class="row">
       <div class="col-md-6">
         <label for="cliente">Cliente</label>
@@ -19,16 +20,17 @@
     <button class="btn btn-primary mt-3" (click)="loadProcesses()">
       <i class="bi bi-search"></i> Buscar Trámites
     </button>
-  </div>
 
-  <div class="mt-4">
-    <h5>Mostrar/Ocultar Columnas</h5>
-    <div class="row">
-      <div class="col-md-3" *ngFor="let column of getColumnKeys()">
-        <input type="checkbox" [(ngModel)]="columns[column]" />
-        <label>{{ column | titlecase }}</label>
+    <div class="mt-4">
+      <h6>Mostrar/Ocultar Columnas</h6>
+      <div class="row">
+        <div class="col-md-3" *ngFor="let column of getColumnKeys()">
+          <input type="checkbox" [(ngModel)]="columns[column]" />
+          <label>{{ column | titlecase }}</label>
+        </div>
       </div>
     </div>
+
   </div>
 
   <div class="table-responsive mt-4">

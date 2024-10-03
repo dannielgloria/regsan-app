@@ -10,6 +10,7 @@ import { TechnicalDataComponent } from './technical-data/technical-data.componen
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ManageEmployesComponent } from './manage-employes/manage-employes.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     ManageProcessesComponent,
     SearchProcessesComponent,
     TechnicalDataComponent,
-    NavbarComponent
+    NavbarComponent,
+    ManageEmployesComponent
   ],
   imports: [
     CommonModule,
