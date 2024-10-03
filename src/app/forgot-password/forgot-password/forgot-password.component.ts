@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EmployeService } from 'src/app/services/employe.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,9 +12,13 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
   pwdForm: FormGroup;
   submitted = false;
-  errorMessage: string = ''; // Para mostrar los mensajes
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private employeService: EmployeService
+  ) {
     this.pwdForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required]]
@@ -25,28 +31,25 @@ export class ForgotPasswordComponent implements OnInit {
 
   get f() { return this.pwdForm.controls; }
 
-  // Validador personalizado para que los correos coincidan
   mustMatch(email: string, confirmEmail: string) {
     return (formGroup: FormGroup) => {
       const emailControl = formGroup.controls[email];
       const confirmEmailControl = formGroup.controls[confirmEmail];
 
-      // Mostrar mensaje de error o éxito en tiempo real
       if (confirmEmailControl.errors && !confirmEmailControl.errors['mustMatch']) {
         return;
       }
 
       if (emailControl.value !== confirmEmailControl.value) {
         confirmEmailControl.setErrors({ mustMatch: true });
-        this.errorMessage = 'Los correos no coinciden'; // Mostrar mensaje de error
+        this.errorMessage = 'Los correos no coinciden';
       } else {
         confirmEmailControl.setErrors(null);
-        this.errorMessage = 'Los correos coinciden'; // Mostrar mensaje de éxito
+        this.errorMessage = 'Los correos coinciden';
       }
     };
   }
 
-  // Controlar el envío del formulario
   onSubmit(): void {
     this.submitted = true;
 
@@ -54,10 +57,30 @@ export class ForgotPasswordComponent implements OnInit {
       return;
     }
 
-    console.log('Formulario válido:', this.pwdForm.value);
+    const req = {
+      email: this.f['email'].value
+    };
+
+    this.employeService.recoveryPassword(req).subscribe({
+      next: (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Éxito',
+          text: response.message,
+          confirmButtonText: 'Aceptar'
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: error.error.message || 'Ocurrió un error',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    });
   }
 
-  // Redirigir al login
   onReset(): void {
     this.router.navigate(['/login']);
   }
