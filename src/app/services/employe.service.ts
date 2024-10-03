@@ -26,4 +26,8 @@ export class EmployeService {
   getAllEmployes(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
+
+  recoveryPassword(employeData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recuperar-password`, employeData);
+  }
 }

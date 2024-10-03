@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     ForgotPasswordRoutingModule
   ]
 })
