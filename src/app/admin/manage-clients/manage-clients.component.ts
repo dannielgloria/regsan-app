@@ -17,10 +17,10 @@ export class ManageClientsComponent {
 
   constructor(private clientService: ClientService, private fb: FormBuilder) {
     this.clientForm = this.fb.group({
-      rfc: ['', Validators.required],
+      rfc: ['', [Validators.required, Validators.pattern('^[A-Z0-9]{12,13}$')]],
       business_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone_number: ['', Validators.required],
+      phone_number: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       contact_first_name: ['', Validators.required],
       contact_last_name: ['', Validators.required]
     });
@@ -29,15 +29,14 @@ export class ManageClientsComponent {
       rfc: [{ value: '', disabled: true }],
       business_name: [{ value: '', disabled: false }, Validators.required],
       email: [{ value: '', disabled: false }, [Validators.required, Validators.email]],
-      phone_number: [{ value: '', disabled: false }, Validators.required],
+      phone_number: [{ value: '', disabled: false }, [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       contact_first_name: [{ value: '', disabled: false }, Validators.required],
       contact_last_name: [{ value: '', disabled: false }, Validators.required]
     });
 
     this.deleteForm = this.fb.group({
-      rfc: ['', Validators.required]
+      rfc: ['', [Validators.required, Validators.pattern('^[A-Z0-9]{12,13}$')]]
     });
-
   }
 
   ngOnInit() {
@@ -71,11 +70,10 @@ export class ManageClientsComponent {
         }
       });
     } else {
-      // Si el formulario no es válido, mostramos una alerta indicando que los campos faltan
       Swal.fire({
         icon: 'warning',
-        title: 'Formulario incompleto',
-        text: 'Por favor, completa todos los campos antes de enviar.',
+        title: 'Formulario incompleto o incorrecto',
+        text: 'Por favor, completa todos los campos correctamente antes de enviar.',
         confirmButtonText: 'Aceptar',
         allowOutsideClick: false
       });
@@ -104,7 +102,6 @@ export class ManageClientsComponent {
             confirmButtonText: 'Aceptar',
             allowOutsideClick: false
           });
-          // Habilitar el botón de actualización
           (document.getElementById('actualizarDatos') as HTMLButtonElement).disabled = false;
         },
         error: (error) => {
@@ -166,7 +163,6 @@ export class ManageClientsComponent {
 
   eliminarCliente() {
     const rfc = this.deleteForm.get('rfc')?.value;
-    console.log("RFC para eliminar: ", rfc);
 
     if (rfc) {
       Swal.fire({
@@ -188,7 +184,7 @@ export class ManageClientsComponent {
                 confirmButtonText: 'Aceptar',
                 allowOutsideClick: false
               });
-              this.deleteForm.reset(); // Limpiar el formulario de eliminación
+              this.deleteForm.reset();
             },
             error: (error) => {
               Swal.fire({
@@ -220,6 +216,7 @@ export class ManageClientsComponent {
       });
     }
   }
+
   loadClients() {
     this.clientService.getAllClients().subscribe({
       next: (response) => {
