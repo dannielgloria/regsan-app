@@ -15,7 +15,7 @@ export class SearchProcessesComponent implements OnInit {
   selectedStatus: string = '';
   statuses: string[] = ['Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
 
-  columns = {
+  columns: { [key: string]: boolean } = {
     client_rfc: true,
     email: true,
     phone_number: true,
@@ -83,5 +83,9 @@ export class SearchProcessesComponent implements OnInit {
         });
       }
     });
+  }
+
+  getColumnKeys(): string[] {
+    return Object.keys(this.columns);
   }
 }
