@@ -1,33 +1,27 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleGuardService implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const expectedRole = route.data['role'] as string;
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
+    const role = sessionStorage.getItem('role');
 
     if (!token) {
       this.router.navigate(['/login']);
       return false;
     }
 
-    return this.authService.getProfile().toPromise().then(profile => {
-      if (profile.role === expectedRole) {
-        return true;
-      } else {
-        this.router.navigate(['/login']);
-        return false;
-      }
-    }).catch(() => {
+    if (role === expectedRole) {
+      return true;
+    } else {
       this.router.navigate(['/login']);
       return false;
-    });
+    }
   }
 }

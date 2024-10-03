@@ -22,11 +22,12 @@ export class LoginComponent {
           error: () => this.error = 'Failed to fetch user profile'
         });
       },
-      error: () => this.error = 'Login failed: Invalid credentials'
+      error: () => this.error = 'Error al iniciar sesión: las credenciales ingresadas no son válidas.'
     });
   }
 
   private handleRedirection(role: string): void {
+    console.log('Redirecting user with role:', role);
     switch (role) {
       case 'Admin':
         this.router.navigate(['/admin/dashboard']);
@@ -41,7 +42,7 @@ export class LoginComponent {
         this.router.navigate(['/regulatory/dashboard']);
         break;
       default:
-        this.router.navigate(['/public']); // o manejar algún tipo de error o caso no contemplado
+        this.router.navigate(['/public']);
     }
   }
 }
