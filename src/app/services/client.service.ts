@@ -13,4 +13,21 @@ export class ClientService {
   registerClient(clientData: any): Observable<any> {
     return this.http.post(this.apiUrl, clientData);
   }
+
+  getClientByRFC(rfc: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${rfc}`);
+  }
+
+  updateClient(rfc: string, clientData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${rfc}`, clientData);
+  }
+
+  deleteClient(rfc: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${rfc}`);
+  }
+
+  getAllClients(): Observable<any> {
+    return this.http.get(`${this.apiUrl}`);
+  }
+
 }
