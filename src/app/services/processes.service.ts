@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,12 +6,42 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProcessesService {
-    private apiUrl = 'http://localhost:3000/api/tramites';
+  private apiUrl = 'http://localhost:3000/api/tramites';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    getProcesses(param: string): Observable<any> {
-      return this.http.get(`${this.apiUrl}/${param}`);
-    }
-
+  // GET: Obtener todos los procesos
+  getAllProcesses(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
+
+  // GET: Obtener proceso por ID o parámetro
+  getProcesses(param: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${param}`);
+  }
+
+  // GET: Buscar proceso por nombre de la empresa
+  searchProcessByBusinessName(businessName: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/search?businessName=${encodeURIComponent(businessName)}`);
+  }
+
+  // GET: Buscar proceso por estado
+  searchProcessByStatus(status: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/status?status=${encodeURIComponent(status)}`);
+  }
+
+  // POST: Crear un nuevo proceso
+  createProcess(processData: any): Observable<any> {
+    return this.http.post(this.apiUrl, processData);
+  }
+
+  // PUT: Actualizar un proceso existente por ID
+  updateProcess(id: string, processData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, processData);
+  }
+
+  // DELETE: Eliminar un proceso por ID
+  deleteProcess(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+}
