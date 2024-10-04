@@ -239,4 +239,46 @@ export class ManageProcessesComponent implements OnInit {
     }
   }
 
+  // Método para cargar los detalles del trámite seleccionado
+onTramiteChange(event: any) {
+  const tramiteId = event.target.value;
+  if (tramiteId) {
+    this.processesService.getProcesses(tramiteId).subscribe({
+      next: (response) => {
+        console.log('Datos del trámite:', response);
+        this.updateProcessForm.patchValue({
+          distinctive_denomination: response.distinctive_denomination,
+          generic_name: response.generic_name,
+          product_manufacturer: response.product_manufacturer,
+          service_name: response.service_name,
+          other_service: response.other_service,
+          input_value: response.input_value,
+          type_description: response.type_description,
+          class_name: response.class_name,
+          start_date: response.start_date,
+          end_date: response.end_date,
+          status: response.status,
+          process_description: response.process_description,
+          completion_percentage: response.completion_percentage,
+          cofepris_entry_date: response.cofepris_entry_date,
+          cofepris_status: response.cofepris_status,
+          cofepris_entry_number: response.cofepris_entry_number,
+          cofepris_link: response.cofepris_link,
+          assigned_consultant: response.assigned_consultant,
+          additional_information: response.additional_information
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al cargar trámite',
+          text: 'No se pudo cargar la información del trámite seleccionado.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    });
+  }
+}
+
+
 }
