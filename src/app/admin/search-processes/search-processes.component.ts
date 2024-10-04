@@ -16,6 +16,7 @@ export class SearchProcessesComponent implements OnInit {
   statuses: string[] = ['Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
 
   columns: { [key: string]: boolean } = {
+    id: true,
     client_rfc: true,
     email: true,
     phone_number: true,

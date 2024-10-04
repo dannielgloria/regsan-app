@@ -170,11 +170,14 @@
         <form [formGroup]="deleteProcessForm" (ngSubmit)="deleteProcess()">
           <div class="mb-3">
             <label for="cliente" class="form-label">Cliente</label>
-            <select formControlName="client_rfc" class="form-select" id="cliente" (change)="onClientChange($event)">
-              <option *ngFor="let client of clients" [value]="client.rfc">{{ client.business_name }}</option>
-            </select>
+            <div class="d-flex align-items-center">
+              <select formControlName="client_rfc" class="form-select me-2" id="cliente" (change)="onClientChange($event)">
+                <option *ngFor="let client of clients" [value]="client.rfc">{{ client.business_name }}</option>
+              </select>
+              <button type="button" class="btn btn-info" (click)="searchTramites()"><i class="bi bi-search" style="color: white; font-weight: bold;"></i></button>
+            </div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3" *ngIf="tramites.length > 0">
             <label for="tramiteIdEliminar" class="form-label">Trámite</label>
             <select formControlName="tramite_id" class="form-select" id="tramiteIdEliminar">
               <option *ngFor="let tramite of tramites" [value]="tramite.id">{{ tramite.id }}</option>

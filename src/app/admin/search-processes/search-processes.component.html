@@ -37,6 +37,7 @@
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
+          <th scope="col" *ngIf="columns['id']">Id Tramite</th>
           <th scope="col" *ngIf="columns['client_rfc']">RFC Cliente</th>
           <th scope="col" *ngIf="columns['email']">Email</th>
           <th scope="col" *ngIf="columns['phone_number']">Teléfono</th>
@@ -61,6 +62,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let tramite of tramites">
+          <td *ngIf="columns['id']">{{ tramite.id }}</td>
           <td *ngIf="columns['client_rfc']">{{ tramite.client_rfc }}</td>
           <td *ngIf="columns['email']">{{ tramite.client.email }}</td>
           <td *ngIf="columns['phone_number']">{{ tramite.client.phone_number }}</td>

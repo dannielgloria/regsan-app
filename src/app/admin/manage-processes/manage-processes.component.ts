@@ -16,6 +16,7 @@ export class ManageProcessesComponent implements OnInit {
   updateProcessForm: FormGroup;
   deleteProcessForm: FormGroup;
   serviceIsOther: boolean = false;
+  selectedClientName: string = '';
 
   constructor(
     private clientService: ClientService,
@@ -101,20 +102,76 @@ export class ManageProcessesComponent implements OnInit {
   }
 
   onClientChange(event: any) {
-    const rfc = event.target.value;
-    this.processesService.searchProcessByBusinessName(rfc).subscribe({
-      next: (response) => {
-        this.tramites = response;
-      },
-      error: (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al cargar trámites',
-          text: 'No se pudieron cargar los trámites para el cliente seleccionado.',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    });
+    this.selectedClientName = event.target.options[event.target.selectedIndex].text; // Obtenemos el nombre del cliente
+  }
+
+  // Método para buscar los trámites de un cliente seleccionado
+  searchTramites() {
+    if (this.selectedClientName) {
+      this.processesService.searchProcessByBusinessName(this.selectedClientName).subscribe({
+        next: (response) => {
+          this.tramites = response;
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al cargar trámites',
+            text: 'No se pudieron cargar los trámites para el cliente seleccionado.',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Cliente no seleccionado',
+        text: 'Por favor, selecciona un cliente primero.',
+        confirmButtonText: 'Aceptar'
+      });
+    }
+  }
+
+  // Método para eliminar un trámite por ID
+  deleteProcess() {
+    const tramiteId = this.deleteProcessForm.get('tramite_id')?.value;
+
+    if (tramiteId) {
+      this.processesService.deleteProcess(tramiteId).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Trámite eliminado',
+            text: 'El trámite ha sido eliminado exitosamente.',
+            confirmButtonText: 'Aceptar'
+          });
+          this.deleteProcessForm.reset();
+        },
+        error: (error) => {
+          if (error.status === 500) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al eliminar',
+              text: 'No se puede eliminar el trámite porque tiene datos técnicos asociados.',
+              confirmButtonText: 'Aceptar'
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al eliminar',
+              text: 'Ocurrió un error al eliminar el trámite. Inténtalo nuevamente.',
+              confirmButtonText: 'Aceptar'
+            });
+          }
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Formulario incompleto',
+        text: 'Por favor, selecciona un trámite para eliminar.',
+        confirmButtonText: 'Aceptar'
+      });
+    }
   }
 
   registerProcess() {
@@ -182,45 +239,4 @@ export class ManageProcessesComponent implements OnInit {
     }
   }
 
-  deleteProcess() {
-    const tramiteId = this.deleteProcessForm.get('tramite_id')?.value;
-
-    if (tramiteId) {
-      this.processesService.deleteProcess(tramiteId).subscribe({
-        next: () => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Trámite eliminado',
-            text: 'El trámite ha sido eliminado exitosamente.',
-            confirmButtonText: 'Aceptar'
-          });
-          this.deleteProcessForm.reset();
-        },
-        error: (error) => {
-          if (error.status === 500) {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error al eliminar',
-              text: 'No se puede eliminar el trámite porque tiene datos técnicos asociados.',
-              confirmButtonText: 'Aceptar'
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error al eliminar',
-              text: 'Ocurrió un error al eliminar el trámite. Inténtalo nuevamente.',
-              confirmButtonText: 'Aceptar'
-            });
-          }
-        }
-      });
-    } else {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Formulario incompleto',
-        text: 'Por favor, selecciona un trámite para eliminar.',
-        confirmButtonText: 'Aceptar'
-      });
-    }
-  }
 }
