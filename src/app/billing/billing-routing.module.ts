@@ -4,7 +4,7 @@ import { BillingDashboardComponent } from './billing-dashboard/billing-dashboard
 import { RoleGuardService } from '../core/services/role-guard.service';
 
 const routes: Routes = [
-  { path: 'dashboard', component: BillingDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Billing' } }
+  { path: 'dashboard', component: BillingDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Facturacion' } }
 ];
 
 @NgModule({

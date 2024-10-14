@@ -32,13 +32,13 @@ export class LoginComponent {
       case 'Admin':
         this.router.navigate(['/admin/dashboard']);
         break;
-      case 'Sales':
+      case 'Ventas':
         this.router.navigate(['/sales/dashboard']);
         break;
-      case 'Billing':
+      case 'Facturacion':
         this.router.navigate(['/billing/dashboard']);
         break;
-      case 'Regulatory':
+      case 'Regulatorio':
         this.router.navigate(['/regulatory/dashboard']);
         break;
       default:

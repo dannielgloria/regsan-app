@@ -6,9 +6,9 @@ import { ViewEditTechnicalDataComponent } from './view-edit-technical-data/view-
 import { RoleGuardService } from '../core/services/role-guard.service';
 
 const routes: Routes = [
-  { path: 'dashboard', component: SalesDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Sales' } },
-  { path: 'processes', component: ViewEditProcessesComponent, canActivate: [RoleGuardService], data: { role: 'Sales' } },
-  { path: 'technical-data', component: ViewEditTechnicalDataComponent, canActivate: [RoleGuardService], data: { role: 'Sales' } }
+  { path: 'dashboard', component: SalesDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Ventas' } },
+  { path: 'processes', component: ViewEditProcessesComponent, canActivate: [RoleGuardService], data: { role: 'Ventas' } },
+  { path: 'technical-data', component: ViewEditTechnicalDataComponent, canActivate: [RoleGuardService], data: { role: 'Ventas' } }
 ];
 
 @NgModule({

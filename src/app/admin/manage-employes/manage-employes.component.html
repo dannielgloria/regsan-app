@@ -39,9 +39,9 @@
             <label for="rolEmpleado" class="form-label">Rol</label>
             <select formControlName="role" class="form-select" id="rolEmpleado" required>
               <option [value]="'Admin'">Administrador</option>
-              <option [value]="'Sales'">Ventas</option>
-              <option [value]="'Billing'">Facturación</option>
-              <option [value]="'Regulatory'">Regulatorio</option>
+              <option [value]="'Ventas'">Ventas</option>
+              <option [value]="'Facturacion'">Facturación</option>
+              <option [value]="'Regulatorio'">Regulatorio</option>
             </select>
             <div *ngIf="employeForm.get('role')?.invalid && employeForm.get('role')?.touched" class="text-danger">
               Este campo es obligatorio.
@@ -83,9 +83,9 @@
             <label for="rolEmpleado" class="form-label">Rol</label>
             <select formControlName="role" class="form-select" id="rolEmpleado" required>
               <option [value]="'Admin'">Administrador</option>
-              <option [value]="'Sales'">Ventas</option>
-              <option [value]="'Billing'">Facturación</option>
-              <option [value]="'Regulatory'">Regulatorio</option>
+              <option [value]="'Ventas'">Ventas</option>
+              <option [value]="'Facturacion'">Facturación</option>
+              <option [value]="'Regulatorio'">Regulatorio</option>
             </select>
           </div>
           <div class="mb-3">
