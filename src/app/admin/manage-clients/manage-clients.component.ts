@@ -45,6 +45,14 @@ export class ManageClientsComponent {
 
   registerClient() {
     if (this.clientForm.valid) {
+      Swal.fire({
+        title: 'Registrando cliente...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
       this.clientService.registerClient(this.clientForm.value).subscribe({
         next: (response) => {
           Swal.fire({
@@ -127,6 +135,14 @@ export class ManageClientsComponent {
 
   actualizarCliente() {
     if (this.updateForm.valid) {
+      Swal.fire({
+        title: 'Actualizando informacion del cliente...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
       const rfc = this.updateForm.get('rfc')?.value;
       const updatedClientData = this.updateForm.getRawValue();
 

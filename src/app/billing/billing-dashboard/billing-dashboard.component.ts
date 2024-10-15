@@ -96,6 +96,15 @@ export class BillingDashboardComponent implements OnInit {
       const tramiteId = this.facturacionForm.get('tramite_id')?.value;
       const facturacionData = this.facturacionForm.value;
 
+      Swal.fire({
+        title: 'Actualizando informacion de facturación...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
       this.processesService.updateFacturacion(tramiteId, facturacionData).subscribe({
         next: () => {
           Swal.fire({

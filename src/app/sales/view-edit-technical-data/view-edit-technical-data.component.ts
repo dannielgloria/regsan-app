@@ -71,6 +71,15 @@ export class ViewEditTechnicalDataComponent implements OnInit {
     if (this.facturaForm.valid) {
       const tramiteId = this.facturaForm.get('tramite_id')?.value;
 
+      Swal.fire({
+        title: 'Confirmando factura...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
       this.processesService.confirmVenta(tramiteId).subscribe({
         next: () => {
           Swal.fire({

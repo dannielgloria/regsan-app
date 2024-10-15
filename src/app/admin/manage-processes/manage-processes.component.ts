@@ -34,6 +34,7 @@ export class ManageProcessesComponent implements OnInit {
       input_value: ['', Validators.required],
       type_description: ['', Validators.required],
       class_name: ['', Validators.required],
+      technical_data: ['', Validators.required],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       status: ['', Validators.required],
@@ -58,6 +59,7 @@ export class ManageProcessesComponent implements OnInit {
       input_value: ['', Validators.required],
       type_description: ['', Validators.required],
       class_name: ['', Validators.required],
+      technical_data: ['', Validators.required],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       status: ['', Validators.required],
@@ -178,6 +180,14 @@ export class ManageProcessesComponent implements OnInit {
   registerProcess() {
     if (this.processForm.valid) {
       const processData = this.processForm.value;
+      Swal.fire({
+        title: 'Cargando informacion del tramite...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
       this.processesService.createProcess(processData).subscribe({
         next: () => {
           Swal.fire({
@@ -211,6 +221,15 @@ export class ManageProcessesComponent implements OnInit {
     if (this.updateProcessForm.valid) {
       const tramiteId = this.updateProcessForm.get('tramite_id')?.value;
       const updatedProcessData = this.updateProcessForm.value;
+
+      Swal.fire({
+        title: 'Actualizando informacion del tramite...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
 
       this.processesService.updateProcess(tramiteId, updatedProcessData).subscribe({
         next: () => {

@@ -45,6 +45,14 @@ export class ManageEmployesComponent {
 
   registerEmploye() {
     if (this.employeForm.valid) {
+      Swal.fire({
+        title: 'Creando informacion del empleado...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
       this.employeService.registerEmploye(this.employeForm.value).subscribe({
         next: (response) => {
           Swal.fire({
@@ -84,6 +92,15 @@ export class ManageEmployesComponent {
     if (this.updateForm.valid) {
       const phone_number = this.updateForm.get('phone_number')?.value;
       const updatedClientData = this.updateForm.getRawValue();
+
+      Swal.fire({
+        title: 'Actualizando informacion del empleado...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
 
       this.employeService.updateEmploye(phone_number, updatedClientData).subscribe({
         next: (response) => {

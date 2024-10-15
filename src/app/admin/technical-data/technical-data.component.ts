@@ -96,6 +96,15 @@ export class TechnicalDataComponent implements OnInit {
       const tramiteId = this.technicalDataForm.get('tramite_id')?.value;
       const technicalData = { technical_data: this.technicalDataForm.get('technical_data')?.value };
 
+      Swal.fire({
+        title: 'Actualizando informacion de los datos tecnicos...',
+        text: 'Por favor, espera mientras se completa el registro.',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
       this.processesService.updateTechnicalData(tramiteId, technicalData).subscribe({
         next: () => {
           Swal.fire({
