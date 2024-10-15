@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { BillingRoutingModule } from './billing-routing.module';
 import { BillingDashboardComponent } from './billing-dashboard/billing-dashboard.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
   declarations: [
-    BillingDashboardComponent
+    BillingDashboardComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
