@@ -47,10 +47,10 @@ export class ViewEditTechnicalDataComponent implements OnInit {
     });
   }
 
-  // Al seleccionar un cliente, cargar los trámites correspondientes
+  // Cambiar el método onClientChange
   onClientChange(event: any): void {
-    const selectedClientRfc = event.target.value;
-    this.processesService.searchProcessByBusinessName(selectedClientRfc).subscribe({
+    const selectedClientName = event.target.options[event.target.selectedIndex].text;
+    this.processesService.searchProcessByBusinessName(selectedClientName).subscribe({
       next: (response) => {
         this.tramites = response;
       },
@@ -64,6 +64,7 @@ export class ViewEditTechnicalDataComponent implements OnInit {
       }
     });
   }
+
 
   // Confirmar la factura, haciendo una solicitud PUT
   confirmFactura(): void {

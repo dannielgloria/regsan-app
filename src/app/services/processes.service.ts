@@ -57,4 +57,8 @@ export class ProcessesService {
     return this.http.put(`${this.apiUrl}/ventas/${tramiteId}`, {});
   }
 
+  updateFacturacion(tramiteId: string, facturacionData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/actualizar-facturacion/${tramiteId}`, facturacionData);
+  }
+
 }
