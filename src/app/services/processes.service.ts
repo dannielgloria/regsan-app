@@ -61,4 +61,8 @@ export class ProcessesService {
     return this.http.put(`${this.apiUrl}/actualizar-facturacion/${tramiteId}`, facturacionData);
   }
 
+  getTramitesByRfc(rfc: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/tramites-rfc/${rfc}`);
+  }
+
 }

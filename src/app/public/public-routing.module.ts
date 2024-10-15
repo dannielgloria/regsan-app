@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicProcessesViewComponent } from './public-processes-view/public-processes-view.component';
 
 const routes: Routes = [
-  { path: 'view-processes', component: PublicProcessesViewComponent }
+  { path: 'mis-tramites', component: PublicProcessesViewComponent }
 ];
 
 @NgModule({
