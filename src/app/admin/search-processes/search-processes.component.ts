@@ -30,7 +30,7 @@ export class SearchProcessesComponent implements OnInit {
     start_date: true,
     end_date: true,
     status: true,
-    process_description: true,
+    technical_data: true,
     completion_percentage: true,
     cofepris_entry_date: true,
     cofepris_status: true,

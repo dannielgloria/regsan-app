@@ -51,7 +51,7 @@
           <th scope="col" *ngIf="columns['start_date']">Fecha Inicio</th>
           <th scope="col" *ngIf="columns['end_date']">Fecha Fin</th>
           <th scope="col" *ngIf="columns['status']">Estatus</th>
-          <th scope="col" *ngIf="columns['process_description']">Descripción Proceso</th>
+          <th scope="col" *ngIf="columns['technical_data']">Datos Tecnicos</th>
           <th scope="col" *ngIf="columns['completion_percentage']">% Completado</th>
           <th scope="col" *ngIf="columns['cofepris_entry_date']">Fecha Entrada COFEPRIS</th>
           <th scope="col" *ngIf="columns['cofepris_status']">Estatus COFEPRIS</th>
@@ -76,7 +76,7 @@
           <td *ngIf="columns['start_date']">{{ tramite.start_date }}</td>
           <td *ngIf="columns['end_date']">{{ tramite.end_date }}</td>
           <td *ngIf="columns['status']">{{ tramite.status }}</td>
-          <td *ngIf="columns['process_description']">{{ tramite.process_description }}</td>
+          <td *ngIf="columns['technical_data']">{{ tramite.technical_data }}</td>
           <td *ngIf="columns['completion_percentage']">{{ tramite.completion_percentage }}</td>
           <td *ngIf="columns['cofepris_entry_date']">{{ tramite.cofepris_entry_date }}</td>
           <td *ngIf="columns['cofepris_status']">{{ tramite.cofepris_status }}</td>

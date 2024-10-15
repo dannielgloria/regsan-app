@@ -44,4 +44,17 @@ export class ProcessesService {
   deleteProcess(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  updateTechnicalData(id: string, technicalData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/datos-tecnicos/${id}`, technicalData);
+  }
+
+  getTechnicalDataById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/datos-tecnicos/${id}`);
+  }
+
+  confirmVenta(tramiteId: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/ventas/${tramiteId}`, {});
+  }
+
 }
