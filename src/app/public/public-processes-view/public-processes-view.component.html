@@ -26,7 +26,8 @@
           <th>Fabricante</th>
           <th>Servicio Requerido</th>
           <th>Proceso del Trámite</th>
-          <th>% Completado</th>
+          <th>Tipo de tramite</th>
+          <th>Clase</th>
           <th>Fecha de Ingreso COFEPRIS</th>
           <th>Número de Entrada COFEPRIS</th>
         </tr>
@@ -39,7 +40,8 @@
           <td>{{ tramite.product_manufacturer }}</td>
           <td>{{ tramite.service_name }}</td>
           <td>{{ tramite.status }}</td>
-          <td>{{ tramite.completion_percentage }}%</td>
+          <td>{{ tramite.type_description }}%</td>
+          <td>{{ tramite.class_name }}%</td>
           <td>{{ tramite.cofepris_entry_date }}</td>
           <td>{{ tramite.cofepris_entry_number }}</td>
         </tr>
