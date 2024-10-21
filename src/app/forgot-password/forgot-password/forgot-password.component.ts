@@ -61,6 +61,15 @@ export class ForgotPasswordComponent implements OnInit {
       email: this.f['email'].value
     };
 
+    Swal.fire({
+      title: 'Enviando correo de confirmacion...',
+      text: 'Por favor, espera mientras se completa la actualizacion.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     this.employeService.recoveryPassword(req).subscribe({
       next: (response) => {
         Swal.fire({
