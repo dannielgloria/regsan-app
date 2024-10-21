@@ -4,7 +4,7 @@ import { RegulatoryDashboardComponent } from './regulatory-dashboard/regulatory-
 import { RoleGuardService } from '../core/services/role-guard.service';
 
 const routes: Routes = [
-  { path: 'dashboard', component: RegulatoryDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Regulatory' } }
+  { path: 'dashboard', component: RegulatoryDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Regulatorio' } }
 ];
 
 @NgModule({

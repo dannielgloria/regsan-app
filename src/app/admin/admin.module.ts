@@ -7,7 +7,10 @@ import { ManageClientsComponent } from './manage-clients/manage-clients.componen
 import { ManageProcessesComponent } from './manage-processes/manage-processes.component';
 import { SearchProcessesComponent } from './search-processes/search-processes.component';
 import { TechnicalDataComponent } from './technical-data/technical-data.component';
-
+import { NavbarComponent } from './navbar/navbar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ManageEmployesComponent } from './manage-employes/manage-employes.component';
 
 @NgModule({
   declarations: [
@@ -15,11 +18,16 @@ import { TechnicalDataComponent } from './technical-data/technical-data.componen
     ManageClientsComponent,
     ManageProcessesComponent,
     SearchProcessesComponent,
-    TechnicalDataComponent
+    TechnicalDataComponent,
+    NavbarComponent,
+    ManageEmployesComponent
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
   ]
 })
 export class AdminModule { }
