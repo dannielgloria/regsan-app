@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Importaci√
 import { BillingRoutingModule } from './billing-routing.module';
 import { BillingDashboardComponent } from './billing-dashboard/billing-dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ViewProcessesComponent } from './view-processes/view-processes.component';
 
 @NgModule({
   declarations: [
     BillingDashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    ViewProcessesComponent
   ],
   imports: [
     CommonModule,
