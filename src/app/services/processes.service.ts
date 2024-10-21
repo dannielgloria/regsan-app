@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProcessesService {
-  private apiUrl = 'http://localhost:3000/api/tramites';
+  private apiUrl = 'https://regsan-service-production.up.railway.app/api/tramites';
 
   constructor(private http: HttpClient) { }
 

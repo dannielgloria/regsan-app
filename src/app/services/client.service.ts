@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:3000/api/clientes';
+  private apiUrl = 'https://regsan-service-production.up.railway.app/api/clientes';
 
   constructor(private http: HttpClient) { }
 

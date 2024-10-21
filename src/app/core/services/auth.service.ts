@@ -7,7 +7,7 @@ import { tap, catchError, switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth';
+  private apiUrl = 'https://regsan-service-production.up.railway.app/api/auth';
 
   constructor(private http: HttpClient) {}
 
