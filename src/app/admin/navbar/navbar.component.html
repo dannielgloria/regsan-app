@@ -1,64 +1,45 @@
-<nav class="navbar navbar-expand-lg bg-dark flex-column vh-100" style="position: fixed; left: 0; top: 0;">
-  <div class="navbar-brand d-flex align-items-center">
-    <img src="../../favicon.ico" alt="Icono Empresa" width="30" height="30" class="d-inline-block align-top">
-    <span class="ml-2 text-green">REGSAN</span>
-  </div>
-
-  <div class="text-center text-white">
-    <small>Administrador</small>
-  </div>
-
-  <!-- Navbar lista vertical -->
-  <ul class="navbar-nav flex-column mt-3 flex-grow-1">
-    <li class="nav-item">
-      <a href="/admin/manage-clients" class="nav-link text-white px-0 align-middle">
-        <img class="icon" src="../../assets/icons/clientes-w.svg" alt="clients-icon" style="margin-left: 10px;">
-        <span class="ms-1 d-none d-sm-inline">Clientes</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="#submenu2" data-bs-toggle="collapse" class="nav-link text-white px-0 align-middle ">
-        <img class="icon" src="../../assets/icons/tramites-w.svg" alt="procedures-icon" style="margin-left: 10px;">
-        <span class="ms-1 d-none d-sm-inline">Trámites</span>
-      </a>
-      <ul class="collapse nav flex-column ms-3" id="submenu2">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand text-green" routerLink="/">
+      <img src="./../favicon.ico" alt="Logo REGSAN" width="30" height="24" class="d-inline-block align-text-top">
+      REGSAN
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <span class="navbar-text">
+        Administrador
+      </span>
+      <ul class="navbar-nav mx-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item">
-          <a class="nav-link text-white" href="/admin/manage-processes">
-            <img class="icon" src="../../assets/icons/administrar-tramites.svg" alt="admin-procedures-icon">
-            <span class="d-none d-sm-inline">Administrar Trámites</span>
+          <a class="nav-link text-white" routerLink="/admin/manage-clients">
+            <i class="bi bi-people-fill"></i>
+            Clientes
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="/admin/search-processes">
-            <img class="icon" src="../../assets/icons/ver-tramites.svg" alt="see-procedures-icon">
-            <span class="d-none d-sm-inline">Ver Trámites</span>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-file-earmark-text"></i>
+            Trámites
           </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarScrollingDropdown">
+            <li><a class="dropdown-item" routerLink="/admin/manage-processes">Administrar Trámites</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/search-processes">Ver Trámites</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/technical-data">Agregar Datos Técnicos</a></li>
+          </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="/admin/technical-data">
-            <img class="icon" src="../../assets/icons/agregar-datos.svg" alt="add-data-icon">
-            <span class="d-none d-sm-inline">Agregar Datos Técnicos</span>
+          <a class="nav-link text-white" routerLink="/admin/manage-employes">
+            <i class="bi bi-person-badge"></i>
+            Empleados
           </a>
         </li>
       </ul>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-white text-white px-0 align-middle" href="/admin/manage-employes">
-        <img class="icon" src="../../assets/icons/id-w.svg" alt="employees-icon" style="margin-left: 10px;">
-        <span class="ms-1 d-none d-sm-inline">Empleados</span>
+      <a (click)="logout()" class="btn btn-outline-secondary ms-auto">
+        <i class="bi bi-box-arrow-right"></i>
+        Salir
       </a>
-    </li>
-  </ul>
-
-  <hr class="bg-secondary ">
-
-  <!-- Ítem Salir centrado y al final de la barra -->
-  <ul class="navbar-nav flex-column mb-3">
-    <li class="nav-item text-center">
-      <a (click)="logout()" class="nav-link text-white" style="cursor: pointer;">
-        <img class="icon" src="../../assets/icons/logout-2-w.svg" alt="logout-icon">
-        <span class="ms-1 d-none d-sm-inline">Salir</span>
-      </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </nav>

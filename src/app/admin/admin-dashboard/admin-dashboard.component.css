@@ -4,17 +4,7 @@ body {
   margin: 0;
 }
 
-app-navbar {
-  width: 250px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-
 .welcome-container {
-  margin-left: 250px; /* Ajuste el contenido para respetar el espacio del navbar */
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,23 +1,3 @@
-.navbar {
-  width: 250px;
-  background-color: #1A1C24;
-}
-
-.navbar .navbar-nav {
-  width: 100%;
-}
-
-.navbar .nav-link {
-  padding: 10px 15px;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.navbar .icon {
-  width: 24px;
-  height: 24px;
-}
-
 .text-green {
   color: #0D9603;
 }
@@ -25,34 +5,16 @@
 .nav-link:hover {
   background-color: #000000;
   color: #0D9603 !important;
+  border-radius: 10px;
 }
 
-.nav-link:hover img,
-.nav-link:hover i {
-  filter: brightness(0) invert(1);
+.dropdown-menu-dark {
+  background-color: #343a40; /* Un color de fondo oscuro que coincida con tu navbar */
+  border-color: #343a40;
 }
 
-.bottom-item {
-  margin-top: auto;
-}
 
-@media (max-width: 991.98px) {
-  .navbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: auto;
-  }
-
-  .navbar .navbar-nav {
-    flex-direction: row;
-  }
-
-  .navbar .nav-link {
-    text-align: center;
-    padding: 10px;
-  }
-}
-.nd{
-  position: absolute;
+.dropdown-menu-dark .dropdown-item:hover, .dropdown-menu-dark .dropdown-item:focus {
+  background-color: #000000;
+  color: #0D9603 !important;
 }
