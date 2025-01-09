@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 export class SearchProcessesComponent implements OnInit {
   clients: any[] = [];
   tramites: any[] = [];
+  allTramites: any[] = [];
   selectedCliente: string = '';
   selectedStatus: string = '';
-  statuses: string[] = ['Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
+  statuses: string[] = ['Todos', 'Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
 
   columns: { [key: string]: boolean } = {
     number: true,
@@ -89,16 +90,32 @@ export class SearchProcessesComponent implements OnInit {
   }
 
   loadProcesses(): void {
-    let param = '';
     if (this.selectedCliente) {
-      param = `search?businessName=${this.selectedCliente}`;
-    } else if (this.selectedStatus) {
-      param = `status?status=${this.selectedStatus}`;
+      this.processesService.getProcesses(`search?businessName=${this.selectedCliente}`).subscribe({
+        next: (response) => {
+          this.allTramites = response;  // Guardar todos los trámites sin filtro
+          this.tramites = response;     // Mostrar todos los trámites inicialmente
+          this.filterByStatus();        // Aplicar el filtro de estatus inmediatamente si ya hay uno seleccionado
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al cargar trámites',
+            text: 'No se pudieron cargar los trámites. Por favor, inténtalo nuevamente.',
+            confirmButtonText: 'Aceptar',
+            allowOutsideClick: false
+          });
+        }
+      });
     }
+  }
 
-    this.processesService.getProcesses(param).subscribe({
+  getAllProcesses(): void {
+    this.processesService.getAllProcesses().subscribe({
       next: (response) => {
-        this.tramites = response;
+        this.allTramites = response;  // Guardar todos los trámites sin filtro
+        this.tramites = response;     // Mostrar todos los trámites inicialmente
+        this.filterByStatus();        // Aplicar el filtro de estatus si es necesario
       },
       error: (error) => {
         Swal.fire({
@@ -111,6 +128,15 @@ export class SearchProcessesComponent implements OnInit {
       }
     });
   }
+
+  filterByStatus(): void {
+    if (this.selectedStatus === 'Todos') {
+      this.tramites = [...this.allTramites];
+    } else {
+      this.tramites = this.allTramites.filter((tramite: any) => tramite.status === this.selectedStatus);
+    }
+  }
+
 
   getColumnKeys() {
     return Object.keys(this.columns);

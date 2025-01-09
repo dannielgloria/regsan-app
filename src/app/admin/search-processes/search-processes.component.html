@@ -9,16 +9,19 @@
           <option *ngFor="let client of clients" [value]="client">{{ client }}</option>
         </select>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6" *ngIf="selectedCliente">
         <label for="status">Estatus</label>
-        <select [(ngModel)]="selectedStatus" class="form-select">
+        <select [(ngModel)]="selectedStatus" class="form-select" (change)="filterByStatus()">
           <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
         </select>
       </div>
     </div>
-
     <button class="btn btn-primary mt-3" (click)="loadProcesses()">
       <i class="bi bi-search"></i> Buscar Trámites
+    </button>
+
+    <button class="btn btn-secondary mt-3 ms-2" (click)="getAllProcesses()">
+      <i class="bi bi-search"></i> Obtener Todos los Trámites
     </button>
 
     <div class="mt-4">
@@ -32,7 +35,6 @@
         </div>
       </div>
     </div>
-
 
   </div>
 
