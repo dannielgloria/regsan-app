@@ -14,6 +14,7 @@ export class BillingDashboardComponent implements OnInit {
 
   // Definir las columnas que se mostrarán en la tabla
   columns: { [key: string]: boolean } = {
+    number: true,
     id: true,
     client_rfc: true,
     email: true,

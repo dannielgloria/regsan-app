@@ -7,6 +7,7 @@
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
+          <th scope="col" *ngIf="columns['number']">No.</th>
           <th scope="col" *ngIf="columns['id']">Id Trámite</th>
           <th scope="col" *ngIf="columns['client_rfc']">RFC Cliente</th>
           <th scope="col" *ngIf="columns['email']">Email</th>
@@ -28,6 +29,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let tramite of tramites" [ngClass]="tramite.rowColor">
+          <td *ngIf="columns['number']">{{ tramite.number }}</td>
           <td *ngIf="columns['id']">{{ tramite.id }}</td>
           <td *ngIf="columns['client_rfc']">{{ tramite.client_rfc }}</td>
           <td *ngIf="columns['email']">{{ tramite.client.email }}</td>

@@ -13,6 +13,7 @@ export class ViewProcessesComponent implements OnInit {
   ascending: boolean = true;
 
   columns: { [key: string]: boolean } = {
+    number: true,
     id: true,
     client_rfc: true,
     email: true,

@@ -16,6 +16,7 @@ export class SearchProcessesComponent implements OnInit {
   statuses: string[] = ['Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
 
   columns: { [key: string]: boolean } = {
+    number: true,
     id: true,
     client_rfc: true,
     email: true,
@@ -36,7 +37,32 @@ export class SearchProcessesComponent implements OnInit {
     cofepris_status: true,
     cofepris_entry_number: true,
     assigned_consultant: true,
-    additional_information: true
+    additional_information: true,
+  };
+
+  columnNames: { [key: string]: string } = {
+    number: 'No.',
+    id: 'Id Trámite',
+    client_rfc: 'RFC Cliente',
+    email: 'Email',
+    phone_number: 'Teléfono',
+    distinctive_denomination: 'Denominación Distintiva',
+    generic_name: 'Nombre Genérico',
+    product_manufacturer: 'Fabricante',
+    service_name: 'Servicio',
+    input_value: 'Insumo',
+    type_description: 'Descripción Tipo',
+    class_name: 'Clase',
+    start_date: 'Fecha Inicio',
+    end_date: 'Fecha Fin',
+    status: 'Estatus',
+    technical_data: 'Datos Técnicos',
+    completion_percentage: '% Completado',
+    cofepris_entry_date: 'Fecha Entrada COFEPRIS',
+    cofepris_status: 'Estatus COFEPRIS',
+    cofepris_entry_number: 'Número de Entrada COFEPRIS',
+    assigned_consultant: 'Consultor Asignado',
+    additional_information: 'Información Adicional',
   };
 
   constructor(private clientService: ClientService, private processesService: ProcessesService) {}
@@ -86,7 +112,7 @@ export class SearchProcessesComponent implements OnInit {
     });
   }
 
-  getColumnKeys(): string[] {
+  getColumnKeys() {
     return Object.keys(this.columns);
   }
 }
