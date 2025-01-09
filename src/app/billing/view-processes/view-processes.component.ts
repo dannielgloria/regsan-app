@@ -81,4 +81,46 @@ export class ViewProcessesComponent implements OnInit {
     if (this.sortedColumn !== column) return 'bi bi-arrow-down-up';
     return this.ascending ? 'bi bi-arrow-up' : 'bi bi-arrow-down';
   }
+
+  downloadCSV(): void {
+    const headers = [
+      'No.',
+      'ID Trámite',
+      'RFC Cliente',
+      'Email',
+      'Teléfono',
+      'Denominación Distintiva',
+      'Nombre Genérico',
+      'Fecha de Pago'
+    ];
+
+    // Construir el contenido del CSV
+    const rows = this.tramites.map((tramite, index) => [
+      index + 1, // No.
+      tramite.id || '', // ID Trámite
+      tramite.client_rfc || '', // RFC Cliente
+      tramite.client?.email || '', // Email
+      tramite.client?.phone_number || '', // Teléfono
+      tramite.distinctive_denomination || '', // Denominación Distintiva
+      tramite.generic_name || '', // Nombre Genérico
+      tramite.payment_date ? new Date(tramite.payment_date).toLocaleDateString('es-ES') : '' // Fecha de Pago
+    ]);
+
+    const csvContent = [
+      headers.join(','), // Encabezados
+      ...rows.map(row => row.map(value => `"${value}"`).join(',')) // Filas de datos
+    ].join('\n');
+
+    // Crear el archivo Blob con codificación UTF-8
+    const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+
+    // Crear un enlace de descarga
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'tramites.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }
