@@ -2,6 +2,16 @@
 <div class="container-fluid pt-4 px-4">
   <h4>Panel de Facturación</h4>
 
+  <div class="mb-3">
+    <label for="filterPaymentStatus" class="form-label">Filtrar por Estatus de Pago:</label>
+    <select id="filterPaymentStatus" class="form-select" [(ngModel)]="selectedPaymentStatus" (change)="filterByPaymentStatus()">
+      <option value="">Todos</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="Pagado">Pagado</option>
+      <option value="Atrasado">Atrasado</option>
+    </select>
+  </div>
+
   <!-- Tabla de Trámites -->
   <div class="table-responsive mt-4">
     <table class="table table-striped">
@@ -28,7 +38,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tramite of tramites" [ngClass]="tramite.rowColor">
+        <tr *ngFor="let tramite of filteredTramites" [ngClass]="tramite.rowColor">
           <td *ngIf="columns['number']">{{ tramite.number }}</td>
           <td *ngIf="columns['id']">{{ tramite.id }}</td>
           <td *ngIf="columns['client_rfc']">{{ tramite.client_rfc }}</td>
@@ -69,9 +79,9 @@
       <div class="mb-3">
         <label for="paymentStatus" class="form-label">Estatus del Pago</label>
         <select formControlName="payment_status" class="form-select" id="paymentStatus" required>
-          <option value="pending">Pendiente</option>
-          <option value="paid">Pagado</option>
-          <option value="delayed">Atrasado</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Pagado">Pagado</option>
+          <option value="Atrasado">Atrasado</option>
         </select>
       </div>
 

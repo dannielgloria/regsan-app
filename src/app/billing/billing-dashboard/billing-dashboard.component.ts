@@ -10,9 +10,11 @@ import Swal from 'sweetalert2';
 })
 export class BillingDashboardComponent implements OnInit {
   tramites: any[] = [];
+  filteredTramites: any[] = [];
   facturacionForm: FormGroup;
+  selectedPaymentStatus: string = ''; // Estado de pago seleccionado
 
-  // Definir las columnas que se mostrarán en la tabla
+  // Columnas para la tabla
   columns: { [key: string]: boolean } = {
     number: true,
     id: true,
@@ -50,45 +52,6 @@ export class BillingDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTramites();
-  }
-
-  // Cargar trámites con sales_flag = true y payment_status distinto de 'pagado'
-  loadTramites(): void {
-    this.processesService.getAllProcesses().subscribe({
-      next: (response) => {
-        // Filtrar los trámites con sales_flag = true y payment_status distinto de 'pagado'
-        this.tramites = response
-          .filter((tramite: any) => tramite.sales_flag === true && tramite.payment_status !== 'paid')
-          .map((tramite: any) => {
-            // Evaluar el color de la fila según la fecha de pago
-            tramite.rowColor = this.getRowColor(tramite.payment_date);
-            return tramite;
-          });
-      },
-      error: () => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al cargar trámites',
-          text: 'No se pudieron cargar los trámites pendientes de facturación.',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    });
-  }
-
-  // Obtener el color de la fila según la fecha de pago
-  getRowColor(paymentDate: string): string {
-    const currentDate = new Date();
-    const dueDate = new Date(paymentDate);
-    const twoMonthsBeforeDueDate = new Date(dueDate);
-    twoMonthsBeforeDueDate.setMonth(dueDate.getMonth() - 2);
-
-    if (currentDate > dueDate) {
-      return 'table-danger'; // Rojo: vencido
-    } else if (currentDate >= twoMonthsBeforeDueDate && currentDate <= dueDate) {
-      return 'table-success'; // Verde: a vencerse
-    }
-    return ''; // Sin color si no cumple ninguna condición
   }
 
   // Actualizar la facturación
@@ -132,6 +95,57 @@ export class BillingDashboardComponent implements OnInit {
         text: 'Por favor, completa todos los campos antes de enviar.',
         confirmButtonText: 'Aceptar'
       });
+    }
+  }
+
+  // Cargar trámites desde el servicio
+  loadTramites(): void {
+    this.processesService.getAllProcesses().subscribe({
+      next: (response) => {
+        // Filtrar los trámites con sales_flag = true y payment_status distinto de 'pagado'
+        this.tramites = response
+          .filter((tramite: any) => tramite.sales_flag === true && tramite.payment_status !== 'paid')
+          .map((tramite: any) => {
+            // Evaluar el color de la fila según la fecha de pago
+          tramite.rowColor = this.getRowColor(tramite.payment_date);
+          return tramite;
+        });
+        this.filteredTramites = [...this.tramites]; // Inicialmente, mostrar todos los trámites
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al cargar trámites',
+          text: 'No se pudieron cargar los trámites pendientes de facturación.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    });
+  }
+
+  // Obtener el color de la fila según la fecha de pago
+  getRowColor(paymentDate: string): string {
+    const currentDate = new Date();
+    const dueDate = new Date(paymentDate);
+    const twoMonthsBeforeDueDate = new Date(dueDate);
+    twoMonthsBeforeDueDate.setMonth(dueDate.getMonth() - 2);
+
+    if (currentDate > dueDate) {
+      return 'table-danger'; // Rojo: vencido
+    } else if (currentDate >= twoMonthsBeforeDueDate && currentDate <= dueDate) {
+      return 'table-success'; // Verde: a vencerse
+    }
+    return ''; // Sin color si no cumple ninguna condición
+  }
+
+  // Filtrar trámites por el estatus de pago
+  filterByPaymentStatus(): void {
+    if (this.selectedPaymentStatus) {
+      this.filteredTramites = this.tramites.filter(
+        tramite => tramite.payment_status === this.selectedPaymentStatus
+      );
+    } else {
+      this.filteredTramites = [...this.tramites]; // Mostrar todos si no hay filtro seleccionado
     }
   }
 }
