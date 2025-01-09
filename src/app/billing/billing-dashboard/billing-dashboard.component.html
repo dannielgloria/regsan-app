@@ -21,7 +21,7 @@
           <th scope="col" *ngIf="columns['class_name']">Clase</th>
           <th scope="col" *ngIf="columns['start_date']">Fecha Inicio</th>
           <th scope="col" *ngIf="columns['end_date']">Fecha Fin</th>
-          <th scope="col" *ngIf="columns['billing']">Facturación</th>
+          <th scope="col" *ngIf="columns['billing']">Número de Facturación</th>
           <th scope="col" *ngIf="columns['payment_status']">Estatus de Pago</th>
           <th scope="col" *ngIf="columns['payment_date']">Fecha de Pago</th>
           <th scope="col" *ngIf="columns['collection_notes']">Notas de Cobranza</th>
@@ -62,7 +62,7 @@
       </div>
 
       <div class="mb-3">
-        <label for="billing" class="form-label">Facturación</label>
+        <label for="billing" class="form-label">Número de Facturación</label>
         <input formControlName="billing" type="text" class="form-control" id="billing" required />
       </div>
 
