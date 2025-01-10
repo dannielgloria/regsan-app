@@ -125,8 +125,12 @@
             <input formControlName="cofepris_link" type="url" class="form-control" id="linkCofepris" >
           </div>
           <div class="mb-3">
-            <label for="consultor" class="form-label">Consultor Asignado</label>
-            <input formControlName="assigned_consultant" type="text" class="form-control" id="consultor" >
+            <label for="assigned_consultant">Consultor Asignado</label>
+              <select id="assigned_consultant" formControlName="assigned_consultant" class="form-select">
+                <option *ngFor="let emp of employees" [value]="emp.fullName">
+                  {{ emp.fullName }}
+                </option>
+              </select>
           </div>
           <div class="mb-3">
             <label for="informacionAdicional" class="form-label">Información Adicional</label>
@@ -279,8 +283,12 @@
             <input formControlName="cofepris_link" type="url" class="form-control" id="linkCofepris">
           </div>
           <div class="mb-3">
-            <label for="consultor" class="form-label">Consultor Asignado</label>
-            <input formControlName="assigned_consultant" type="text" class="form-control" id="consultor">
+            <label for="update_assigned_consultant">Consultor Asignado</label>
+              <select id="update_assigned_consultant" formControlName="assigned_consultant" class="form-select">
+                <option *ngFor="let emp of employees" [value]="emp.fullName">
+                  {{ emp.fullName }}
+                </option>
+              </select>
           </div>
           <div class="mb-3">
             <label for="informacionAdicional" class="form-label">Información Adicional</label>

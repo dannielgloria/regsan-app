@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client.service';
 import { ProcessesService } from 'src/app/services/processes.service';
+import { EmployeService } from 'src/app/services/employe.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 export class ManageProcessesComponent implements OnInit {
   clients: any[] = [];
   tramites: any[] = [];
+  employees: any[] = [];
   processForm: FormGroup;
   updateProcessForm: FormGroup;
   deleteProcessForm: FormGroup;
@@ -21,6 +23,7 @@ export class ManageProcessesComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private processesService: ProcessesService,
+    private employeService: EmployeService,
     private fb: FormBuilder
   ) {
     this.processForm = this.fb.group({
@@ -82,6 +85,27 @@ export class ManageProcessesComponent implements OnInit {
 
   ngOnInit() {
     this.loadClients();
+    this.loadEmployees();
+  }
+
+  loadEmployees() {
+    this.employeService.getAllEmployes().subscribe({
+      next: (response) => {
+        // Combinar first_name y last_name
+        this.employees = response.map((emp: any) => ({
+          fullName: `${emp.first_name} ${emp.last_name}`,
+          email: emp.email // Guardar cualquier identificador necesario
+        }));
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al cargar empleados',
+          text: 'No se pudieron cargar los empleados.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    });
   }
 
   loadClients() {
