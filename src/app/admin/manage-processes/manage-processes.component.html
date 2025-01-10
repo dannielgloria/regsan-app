@@ -256,6 +256,20 @@
               <option value="NA">NA</option>
             </select>
           </div>
+          <div *ngIf="updateProcessForm.get('cofepris_status')?.value === 'Aprobado'" class="mb-3">
+            <label for="registroSanitario" class="form-label">Registro Sanitario</label>
+            <input formControlName="cofepris_status_health_registration_number" type="text" class="form-control" id="registroSanitario">
+          </div>
+
+          <div *ngIf="updateProcessForm.get('cofepris_status')?.value === 'Preevención'" class="mb-3">
+            <label for="noEntrada" class="form-label">No. Entrada</label>
+            <input formControlName="cofepris_status_registrer_number" type="text" class="form-control" id="noEntrada">
+          </div>
+
+          <div *ngIf="updateProcessForm.get('cofepris_status')?.value === 'Preevención'" class="mb-3">
+            <label for="fechaRespuestaPrevencion" class="form-label">Fecha Respuesta Prevención</label>
+            <input formControlName="cofepris_status_prevention_response" type="date" class="form-control" id="fechaRespuestaPrevencion">
+          </div>
           <div class="mb-3">
             <label for="numeroCofepris" class="form-label">Número de Entrada a COFEPRIS</label>
             <input formControlName="cofepris_entry_number" type="text" class="form-control" id="numeroCofepris">
