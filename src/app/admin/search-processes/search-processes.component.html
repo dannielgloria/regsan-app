@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tramite of tramites">
+        <tr *ngFor="let tramite of tramites" (click)="viewDetails(tramite.id)" style="cursor: pointer;">
           <td *ngIf="columns['number']">{{ tramite.number }}</td>
           <td *ngIf="columns['id']">{{ tramite.id }}</td>
           <td *ngIf="columns['client_rfc']">{{ tramite.client_rfc }}</td>

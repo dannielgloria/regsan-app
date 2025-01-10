@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'src/app/services/client.service';
 import { ProcessesService } from 'src/app/services/processes.service';
@@ -72,7 +73,7 @@ export class SearchProcessesComponent implements OnInit {
     additional_information: 'Información Adicional',
   };
 
-  constructor(private clientService: ClientService, private processesService: ProcessesService) {}
+  constructor(private clientService: ClientService, private processesService: ProcessesService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadClients();
@@ -146,5 +147,9 @@ export class SearchProcessesComponent implements OnInit {
 
   getColumnKeys() {
     return Object.keys(this.columns);
+  }
+
+  viewDetails(id: string): void {
+    this.router.navigate(['/admin/tramite-detalle', id]);
   }
 }

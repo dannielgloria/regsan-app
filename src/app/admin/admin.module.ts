@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ManageEmployesComponent } from './manage-employes/manage-employes.component';
+import { OneProcessComponent } from './one-process/one-process.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ManageEmployesComponent } from './manage-employes/manage-employes.compo
     SearchProcessesComponent,
     TechnicalDataComponent,
     NavbarComponent,
-    ManageEmployesComponent
+    ManageEmployesComponent,
+    OneProcessComponent
   ],
   imports: [
     CommonModule,
