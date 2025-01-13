@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client.service';
 import { ProcessesService } from 'src/app/services/processes.service';
+import { EmployeService } from 'src/app/services/employe.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 export class ManageProcessesComponent implements OnInit {
   clients: any[] = [];
   tramites: any[] = [];
+  employees: any[] = [];
   processForm: FormGroup;
   updateProcessForm: FormGroup;
   deleteProcessForm: FormGroup;
@@ -21,6 +23,7 @@ export class ManageProcessesComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private processesService: ProcessesService,
+    private employeService: EmployeService,
     private fb: FormBuilder
   ) {
     this.processForm = this.fb.group({
@@ -38,7 +41,6 @@ export class ManageProcessesComponent implements OnInit {
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       status: ['', Validators.required],
-      process_description: ['', Validators.required],
       completion_percentage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       cofepris_entry_date: ['', Validators.required],
       cofepris_status: ['', Validators.required],
@@ -63,10 +65,12 @@ export class ManageProcessesComponent implements OnInit {
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       status: ['', Validators.required],
-      process_description: ['', Validators.required],
       completion_percentage: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       cofepris_entry_date: ['', Validators.required],
       cofepris_status: ['', Validators.required],
+      cofepris_status_health_registration_number: [''],
+      cofepris_status_registrer_number: [''],
+      cofepris_status_prevention_response: [''],
       cofepris_entry_number: ['', Validators.required],
       cofepris_link: ['', Validators.required],
       assigned_consultant: ['', Validators.required],
@@ -81,6 +85,27 @@ export class ManageProcessesComponent implements OnInit {
 
   ngOnInit() {
     this.loadClients();
+    this.loadEmployees();
+  }
+
+  loadEmployees() {
+    this.employeService.getAllEmployes().subscribe({
+      next: (response) => {
+        // Combinar first_name y last_name
+        this.employees = response.map((emp: any) => ({
+          fullName: `${emp.first_name} ${emp.last_name}`,
+          email: emp.email // Guardar cualquier identificador necesario
+        }));
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al cargar empleados',
+          text: 'No se pudieron cargar los empleados.',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    });
   }
 
   loadClients() {
@@ -275,6 +300,7 @@ onTramiteChange(event: any) {
           input_value: response.input_value,
           type_description: response.type_description,
           class_name: response.class_name,
+          technical_data: response.technical_data,
           start_date: response.start_date,
           end_date: response.end_date,
           status: response.status,

@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="content-container container-fluid pt-4 px-4">
+<div class="container-fluid pt-4 px-4">
   <h4>Gestión de Trámites</h4>
 
   <!-- Registro de Trámite -->
@@ -96,15 +96,6 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="proceso" class="form-label">Proceso</label>
-            <select formControlName="process_description" class="form-select" id="proceso">
-              <option value="Pendiente">Pendiente</option>
-              <option value="En Proceso">En Proceso</option>
-              <option value="Finalizado">Finalizado</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>
-          </div>
-          <div class="mb-3">
             <label for="porcentajeAvance" class="form-label">Porcentaje de Avance</label>
             <input formControlName="completion_percentage" type="number" min="0" max="100" class="form-control" id="porcentajeAvance" >
           </div>
@@ -134,8 +125,12 @@
             <input formControlName="cofepris_link" type="url" class="form-control" id="linkCofepris" >
           </div>
           <div class="mb-3">
-            <label for="consultor" class="form-label">Consultor Asignado</label>
-            <input formControlName="assigned_consultant" type="text" class="form-control" id="consultor" >
+            <label for="assigned_consultant">Consultor Asignado</label>
+              <select id="assigned_consultant" formControlName="assigned_consultant" class="form-select">
+                <option *ngFor="let emp of employees" [value]="emp.fullName">
+                  {{ emp.fullName }}
+                </option>
+              </select>
           </div>
           <div class="mb-3">
             <label for="informacionAdicional" class="form-label">Información Adicional</label>
@@ -245,15 +240,6 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="proceso" class="form-label">Proceso</label>
-            <select formControlName="process_description" class="form-select" id="proceso">
-              <option value="Pendiente">Pendiente</option>
-              <option value="En Proceso">En Proceso</option>
-              <option value="Finalizado">Finalizado</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>
-          </div>
-          <div class="mb-3">
             <label for="porcentajeAvance" class="form-label">Porcentaje de Avance</label>
             <input formControlName="completion_percentage" type="number" min="0" max="100" class="form-control" id="porcentajeAvance">
           </div>
@@ -274,6 +260,20 @@
               <option value="NA">NA</option>
             </select>
           </div>
+          <div *ngIf="updateProcessForm.get('cofepris_status')?.value === 'Aprobado'" class="mb-3">
+            <label for="registroSanitario" class="form-label">Registro Sanitario</label>
+            <input formControlName="cofepris_status_health_registration_number" type="text" class="form-control" id="registroSanitario">
+          </div>
+
+          <div *ngIf="updateProcessForm.get('cofepris_status')?.value === 'Preevención'" class="mb-3">
+            <label for="noEntrada" class="form-label">No. Entrada</label>
+            <input formControlName="cofepris_status_registrer_number" type="text" class="form-control" id="noEntrada">
+          </div>
+
+          <div *ngIf="updateProcessForm.get('cofepris_status')?.value === 'Preevención'" class="mb-3">
+            <label for="fechaRespuestaPrevencion" class="form-label">Fecha Respuesta Prevención</label>
+            <input formControlName="cofepris_status_prevention_response" type="date" class="form-control" id="fechaRespuestaPrevencion">
+          </div>
           <div class="mb-3">
             <label for="numeroCofepris" class="form-label">Número de Entrada a COFEPRIS</label>
             <input formControlName="cofepris_entry_number" type="text" class="form-control" id="numeroCofepris">
@@ -283,8 +283,12 @@
             <input formControlName="cofepris_link" type="url" class="form-control" id="linkCofepris">
           </div>
           <div class="mb-3">
-            <label for="consultor" class="form-label">Consultor Asignado</label>
-            <input formControlName="assigned_consultant" type="text" class="form-control" id="consultor">
+            <label for="update_assigned_consultant">Consultor Asignado</label>
+              <select id="update_assigned_consultant" formControlName="assigned_consultant" class="form-select">
+                <option *ngFor="let emp of employees" [value]="emp.fullName">
+                  {{ emp.fullName }}
+                </option>
+              </select>
           </div>
           <div class="mb-3">
             <label for="informacionAdicional" class="form-label">Información Adicional</label>

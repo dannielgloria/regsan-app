@@ -7,6 +7,7 @@ import { SearchProcessesComponent } from './search-processes/search-processes.co
 import { TechnicalDataComponent } from './technical-data/technical-data.component';
 import { RoleGuardService } from '../core/services/role-guard.service';
 import { ManageEmployesComponent } from './manage-employes/manage-employes.component';
+import { OneProcessComponent } from './one-process/one-process.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: AdminDashboardComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'manage-processes', component: ManageProcessesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
   { path: 'search-processes', component: SearchProcessesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
   { path: 'technical-data', component: TechnicalDataComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
-  { path: 'manage-employes', component: ManageEmployesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } }
+  { path: 'manage-employes', component: ManageEmployesComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } },
+  { path: 'tramite-detalle/:id', component: OneProcessComponent, canActivate: [RoleGuardService], data: { role: 'Admin' } }
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ClientService } from 'src/app/services/client.service';
 import { ProcessesService } from 'src/app/services/processes.service';
@@ -11,11 +12,13 @@ import Swal from 'sweetalert2';
 export class SearchProcessesComponent implements OnInit {
   clients: any[] = [];
   tramites: any[] = [];
+  allTramites: any[] = [];
   selectedCliente: string = '';
   selectedStatus: string = '';
-  statuses: string[] = ['Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
+  statuses: string[] = ['Todos', 'Pendiente', 'En Proceso', 'Finalizado', 'Cancelado'];
 
   columns: { [key: string]: boolean } = {
+    number: true,
     id: true,
     client_rfc: true,
     email: true,
@@ -35,11 +38,42 @@ export class SearchProcessesComponent implements OnInit {
     cofepris_entry_date: true,
     cofepris_status: true,
     cofepris_entry_number: true,
+    cofepris_status_health_registration_number: true,
+    cofepris_status_registrer_number: true,
+    cofepris_status_prevention_response: true,
     assigned_consultant: true,
-    additional_information: true
+    additional_information: true,
   };
 
-  constructor(private clientService: ClientService, private processesService: ProcessesService) {}
+  columnNames: { [key: string]: string } = {
+    number: 'No.',
+    id: 'Id Trámite',
+    client_rfc: 'RFC Cliente',
+    email: 'Email',
+    phone_number: 'Teléfono',
+    distinctive_denomination: 'Denominación Distintiva',
+    generic_name: 'Nombre Genérico',
+    product_manufacturer: 'Fabricante',
+    service_name: 'Servicio',
+    input_value: 'Insumo',
+    type_description: 'Descripción Tipo',
+    class_name: 'Clase',
+    start_date: 'Fecha Inicio',
+    end_date: 'Fecha Fin',
+    status: 'Estatus',
+    technical_data: 'Datos Técnicos',
+    completion_percentage: '% Completado',
+    cofepris_entry_date: 'Fecha Entrada COFEPRIS',
+    cofepris_status: 'Estatus COFEPRIS',
+    cofepris_entry_number: 'Número de Entrada COFEPRIS',
+    cofepris_status_health_registration_number: 'Registro Sanitario COFEPRIS',
+    cofepris_status_registrer_number: 'Numero de respuesta COFEPRIS',
+    cofepris_status_prevention_response: 'Fecha Respuesta Prevención COFEPRIS',
+    assigned_consultant: 'Consultor Asignado',
+    additional_information: 'Información Adicional',
+  };
+
+  constructor(private clientService: ClientService, private processesService: ProcessesService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadClients();
@@ -63,16 +97,32 @@ export class SearchProcessesComponent implements OnInit {
   }
 
   loadProcesses(): void {
-    let param = '';
     if (this.selectedCliente) {
-      param = `search?businessName=${this.selectedCliente}`;
-    } else if (this.selectedStatus) {
-      param = `status?status=${this.selectedStatus}`;
+      this.processesService.getProcesses(`search?businessName=${this.selectedCliente}`).subscribe({
+        next: (response) => {
+          this.allTramites = response;  // Guardar todos los trámites sin filtro
+          this.tramites = response;     // Mostrar todos los trámites inicialmente
+          this.filterByStatus();        // Aplicar el filtro de estatus inmediatamente si ya hay uno seleccionado
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al cargar trámites',
+            text: 'No se pudieron cargar los trámites. Por favor, inténtalo nuevamente.',
+            confirmButtonText: 'Aceptar',
+            allowOutsideClick: false
+          });
+        }
+      });
     }
+  }
 
-    this.processesService.getProcesses(param).subscribe({
+  getAllProcesses(): void {
+    this.processesService.getAllProcesses().subscribe({
       next: (response) => {
-        this.tramites = response;
+        this.allTramites = response;  // Guardar todos los trámites sin filtro
+        this.tramites = response;     // Mostrar todos los trámites inicialmente
+        this.filterByStatus();        // Aplicar el filtro de estatus si es necesario
       },
       error: (error) => {
         Swal.fire({
@@ -86,7 +136,20 @@ export class SearchProcessesComponent implements OnInit {
     });
   }
 
-  getColumnKeys(): string[] {
+  filterByStatus(): void {
+    if (this.selectedStatus === 'Todos') {
+      this.tramites = [...this.allTramites];
+    } else {
+      this.tramites = this.allTramites.filter((tramite: any) => tramite.status === this.selectedStatus);
+    }
+  }
+
+
+  getColumnKeys() {
     return Object.keys(this.columns);
+  }
+
+  viewDetails(id: string): void {
+    this.router.navigate(['/admin/tramite-detalle', id]);
   }
 }

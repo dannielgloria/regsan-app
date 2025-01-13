@@ -13,13 +13,17 @@ export class ViewProcessesComponent implements OnInit {
   ascending: boolean = true;
 
   columns: { [key: string]: boolean } = {
+    number: true,
     id: true,
+    business_name: true,
     client_rfc: true,
     email: true,
     phone_number: true,
     distinctive_denomination: true,
+    payment_status: true,
     generic_name: true,
     payment_date: true,
+    end_date: true,
   };
 
   constructor(private processesService: ProcessesService) {}
@@ -79,5 +83,53 @@ export class ViewProcessesComponent implements OnInit {
   getSortIcon(column: string): string {
     if (this.sortedColumn !== column) return 'bi bi-arrow-down-up';
     return this.ascending ? 'bi bi-arrow-up' : 'bi bi-arrow-down';
+  }
+
+  downloadCSV(): void {
+    const headers = [
+      'No.',
+      'ID Trámite',
+      'Nombre del Cliente',
+      'RFC Cliente',
+      'Email',
+      'Teléfono',
+      'Denominación Distintiva',
+      'Nombre Genérico',
+      'Estatus de Pago',
+      'Fecha de Pago',
+      'Fecha de Vencimiento'
+    ];
+
+    // Construir el contenido del CSV
+    const rows = this.tramites.map((tramite, index) => [
+      index + 1, // No.
+      tramite.id || '', // ID Trámite
+      tramite.client?.business_name || '', // Nombre Comercial
+      tramite.client_rfc || '', // RFC Cliente
+      tramite.client?.email || '', // Email
+      tramite.client?.phone_number || '', // Teléfono
+      tramite.distinctive_denomination || '', // Denominación Distintiva
+      tramite.generic_name || '', // Nombre Genérico
+      tramite.payment_status || '', // Estatus de Pago
+      tramite.payment_date ? new Date(tramite.payment_date).toLocaleDateString('es-ES') : '', // Fecha de Pago
+      tramite.end_date ? new Date(tramite.end_date).toLocaleDateString('es-ES') : '' // Fecha de Vencimiento
+    ]);
+
+    const csvContent = [
+      headers.join(','), // Encabezados
+      ...rows.map(row => row.map(value => `"${value}"`).join(',')) // Filas de datos
+    ].join('\n');
+
+    // Crear el archivo Blob con codificación UTF-8
+    const blob = new Blob([`\uFEFF${csvContent}`], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+
+    // Crear un enlace de descarga
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'tramites.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
